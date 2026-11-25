@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etescafé - Totem de Autoatendimento</title>
+    <!-- Fonte Inter carregada via Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="painel.css">
+</head>
+<body>
+
+    <!-- HEADER DA APLICAÇÃO -->
+    <header class="header">
+        <div class="header-container">
+            <div class="brand" onclick="mostrarSecao('inicio')">
+                <span class="brand-title">Etescafé☕</span>
+            </div>
+
+            <nav class="nav">
+                <button class="nav-btn" onclick="mostrarSecao('inicio')" id="nav-inicio">Início</button>
+                <button class="nav-btn" onclick="mostrarSecao('cardapio')" id="nav-cardapio">Cardápio</button>
+                <button class="nav-btn cart-nav-btn" onclick="mostrarSecao('carrinho')" id="nav-carrinho">
+                    Carrinho
+                    <span class="cart-badge" id="cart-badge-count">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="main-container">
+
+        <!-- 1. TELA INICIAL (HERO COM IMAGEM DE PÃO) -->
+        <section id="secao-inicio" class="view-section active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-main-title">Etescafé</h1>
+                    <h2 class="hero-tagline">O café que acompanha o seu dia.</h2>
+                    <p class="hero-subtitle">Escolha seus produtos e faça seu pedido de forma rápida e simples.</p>
+                    <button class="btn btn-primary btn-hero" onclick="mostrarSecao('cardapio')">
+                        COMEÇAR PEDIDO
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. TELA DO CARDÁPIO -->
+        <section id="secao-cardapio" class="view-section">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Cardápio</h1>
+                    <p class="page-subtitle">Escolha seus produtos</p>
+                </div>
+                <div class="cart-summary-pill" onclick="mostrarSecao('carrinho')">
+                    <span class="summary-price" id="quick-total-price">R$ 0,00</span>
+                    <button class="btn btn-secondary btn-sm">Ver Carrinho</button>
+                </div>
+            </div>
+
+            <!-- CATEGORIAS -->
+            <div class="categories-bar">
+                <button class="category-btn active" data-categoria="Todos" onclick="filtrarCategoria('Todos')">Todos</button>
+                <button class="category-btn" data-categoria="Pães" onclick="filtrarCategoria('Pães')">Pães</button>
+                <button class="category-btn" data-categoria="Salgados" onclick="filtrarCategoria('Salgados')">Salgados</button>
+                <button class="category-btn" data-categoria="Bebidas" onclick="filtrarCategoria('Bebidas')">Bebidas</button>
+                <button class="category-btn" data-categoria="Doces" onclick="filtrarCategoria('Doces')">Doces</button>
+            </div>
+
+            <!-- GRADE DE PRODUTOS DINÂMICA -->
+            <div class="products-grid" id="produtos-container">
+                <div class="loading-state">
+                    <p>Carregando produtos...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. TELA DO CARRINHO -->
+        <section id="secao-carrinho" class="view-section">
+            <div class="page-header">
+                <h1 class="page-title">Seu pedido</h1>
+            </div>
+
+            <div class="cart-layout">
+                <div class="panel cart-items-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Itens no carrinho</h3>
+                        <button class="btn-link-danger" onclick="limparCarrinho()">Esvaziar</button>
+                    </div>
+                    <div id="carrinho-lista" class="cart-items-list">
+                        <!-- Itens inseridos via JS -->
+                    </div>
+                </div>
+
+                <div class="panel cart-summary-panel">
+                    <h3 class="panel-title">Resumo do pedido</h3>
+                    
+                    <div class="summary-row">
+                        <span>Quantidade:</span>
+                        <span id="cart-summary-count">0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="cart-summary-subtotal">R$ 0,00</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="summary-row total-row">
+                        <span>Total:</span>
+                        <strong id="cart-summary-total">R$ 0,00</strong>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-secondary" onclick="mostrarSecao('cardapio')">Continuar comprando</button>
+                        <button class="btn btn-primary" id="btn-finalizar-pedido" onclick="avancarParaIdentificacao()">Finalizar pedido</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TELA DE IDENTIFICAÇÃO DO CLIENTE -->
+        <section id="secao-identificacao" class="view-section">
+            <div class="page-header">
+                <h1 class="page-title">Identificação</h1>
+            </div>
+
+            <div class="panel form-panel">
+                <p class="form-desc">Para continuar, informe seu nome.</p>
+
+                <form id="form-identificacao" onsubmit="event.preventDefault(); avancarParaPagamento();">
+                    <div class="form-group">
+                        <label for="cliente-nome">Nome</label>
+                        <input type="text" id="cliente-nome" class="form-input" placeholder="Digite seu nome" required autocomplete="name">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="mostrarSecao('carrinho')">Voltar</button>
+                        <button type="submit" class="btn btn-primary">Continuar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 5. TELA DE PAGAMENTO -->
+        <section id="secao-pagamento" class="view-section">
+            <div class="page-header">
+                <h1 class="page-title">Forma de pagamento</h1>
+            </div>
+
+            <div class="payment-layout">
+                <div class="panel">
+                    <h3 class="panel-title">Opções</h3>
+                    <div class="methods-list">
+                        <label class="method-option active" id="method-pix" onclick="selecionarMetodoPagamento('PIX')">
+                            <input type="radio" name="metodo" value="PIX" checked>
+                            <span>PIX</span>
+                        </label>
+
+                        <label class="method-option" id="method-dinheiro" onclick="selecionarMetodoPagamento('DINHEIRO')">
+                            <input type="radio" name="metodo" value="DINHEIRO">
+                            <span>Dinheiro</span>
+                        </label>
+
+                        <label class="method-option" id="method-cartao" onclick="selecionarMetodoPagamento('CARTÃO')">
+                            <input type="radio" name="metodo" value="CARTÃO">
+                            <span>Cartão</span>
+                        </label>
+                    </div>
+
+                    <div class="payment-total-box">
+                        <span>Total:</span>
+                        <strong id="payment-total-amount">R$ 0,00</strong>
+                    </div>
+                </div>
+
+                <div class="panel payment-detail-panel">
+                    <!-- PIX -->
+                    <div id="payment-view-pix" class="payment-subview active">
+                        <h3>Pagamento PIX</h3>
+                        <p class="subview-desc">Escaneie o QR Code simulado abaixo:</p>
+
+                        <div class="qrcode-box">
+                            <div id="qrcode-container"></div>
+                            <div class="qrcode-text-payload" id="qrcode-payload-text">
+                                PADARIA-FRANGOLINO|PEDIDO-#001|VALOR-0.00|PAGAMENTO-SIMULADO
+                            </div>
+                        </div>
+
+                        <div class="notice-badge">Pagamento simulado</div>
+
+                        <button class="btn btn-primary btn-block" onclick="concluirPedidoEPagamento('PIX')">
+                            SIMULAR PAGAMENTO
+                        </button>
+                    </div>
+
+                    <!-- DINHEIRO -->
+                    <div id="payment-view-dinheiro" class="payment-subview">
+                        <h3>Pagamento em dinheiro</h3>
+                        <p class="subview-desc">O pagamento será realizado diretamente no balcão ao retirar seu pedido.</p>
+
+                        <button class="btn btn-primary btn-block" style="margin-top: 1.5rem;" onclick="concluirPedidoEPagamento('DINHEIRO')">
+                            CONFIRMAR PEDIDO
+                        </button>
+                    </div>
+
+                    <!-- CARTÃO -->
+                    <div id="payment-view-cartao" class="payment-subview">
+                        <h3>Pagamento com cartão</h3>
+                            <p class="subview-desc">Aproxime ou insira o cartão na maquininha (Simulação).</p>
+
+                        <div class="notice-badge" style="margin-top: 1rem;">Pagamento simulado</div>
+
+                        <button class="btn btn-primary btn-block" style="margin-top: 1.5rem;" onclick="concluirPedidoEPagamento('CARTÃO')">
+                            SIMULAR PAGAMENTO
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. TELA DE CONFIRMAÇÃO DO PEDIDO -->
+        <section id="secao-confirmacao" class="view-section">
+            <div class="panel confirmation-card">
+                <h1 class="confirmation-header">Pedido realizado com sucesso</h1>
+                
+                <div class="order-id-box">
+                    <h2 class="order-id-title" id="confirmed-order-number">Pedido #001</h2>
+                </div>
+
+                <div class="confirmation-status" id="confirmed-payment-status">
+                    Pagamento aprovado
+                </div>
+
+                <div class="confirmed-summary-box">
+                    <div class="conf-row">
+                        <span>Cliente:</span>
+                        <strong id="confirmed-customer-name">-</strong>
+                    </div>
+                    <div class="conf-row">
+                        <span>Forma de pagamento:</span>
+                        <strong id="confirmed-payment-method">-</strong>
+                    </div>
+                    
+                    <div class="divider"></div>
+
+                    <div class="conf-items-title">Itens do pedido:</div>
+                    <div id="confirmed-items-list" class="conf-items-list">
+                        <!-- Itens gravados no backend -->
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="conf-row total-row">
+                        <span>Total:</span>
+                        <strong id="confirmed-total-amount">R$ 0,00</strong>
+                    </div>
+                </div>
+
+                <p class="counter-notice">Dirija-se ao balcão para retirar seu pedido.</p>
+
+                <button class="btn btn-primary btn-lg" onclick="iniciarNovoPedido()">
+                    NOVO PEDIDO
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- TOAST DE NOTIFICAÇÃO -->
+    <div id="toast-notification" class="toast">
+        <span id="toast-message">Produto adicionado.</span>
+    </div>
+
+    <!-- CARREGAMENTO DO SCRIPT DO PAINEL -->
+    <script src="painel.js"></script>
+</body>
+</html>

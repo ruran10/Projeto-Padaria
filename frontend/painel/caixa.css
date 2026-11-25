@@ -1,0 +1,28 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, Arial, sans-serif;
+  color: #30241e;
+  background: #f3f1ee;
+}
+* { box-sizing: border-box; }
+body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 24px; }
+.receipt { width: min(100%, 460px); padding: 36px; background: #fff; border: 1px solid #e6e0da; }
+.brand { padding-bottom: 24px; border-bottom: 1px solid #e6e0da; text-align: center; font-size: 14px; font-weight: 700; letter-spacing: .12em; }
+.waiting { padding: 52px 8px; text-align: center; }
+h1 { margin: 14px 0; font-size: 20px; }
+.waiting p { color: #786f68; font-size: 14px; }
+.eyebrow { margin: 28px 0 8px; color: #8b5729; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-align: center; }
+.number, .customer { text-align: center; }
+.number { font-size: 24px; }
+.customer { margin: 8px 0 28px; color: #61564e; }
+.items { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.items li, .total { display: flex; justify-content: space-between; gap: 16px; }
+.items li { font-size: 14px; }
+.items .price { white-space: nowrap; }
+.total { margin-top: 24px; padding-top: 18px; border-top: 1px solid #e6e0da; font-weight: 700; }
+.total strong { font-size: 20px; }
+button { width: 100%; margin-top: 28px; padding: 15px; border: 0; background: #3c2415; color: white; font-size: 13px; font-weight: 700; letter-spacing: .05em; cursor: pointer; }
+button:hover { background: #56351f; }
+button:disabled { opacity: .6; cursor: wait; }
+.error { margin: 20px 0 0; color: #a53d32; text-align: center; font-size: 13px; }
+[hidden] { display: none !important; }

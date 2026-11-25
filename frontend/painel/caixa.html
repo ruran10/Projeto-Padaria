@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3c2415">
+  <title>Caixa | Padaria do Frangolino</title>
+  <link rel="stylesheet" href="caixa.css">
+  <script src="caixa.js" defer></script>
+</head>
+<body>
+  <main class="receipt" aria-live="polite">
+    <header class="brand">PADARIA DO FRANGOLINO</header>
+    <section id="waiting" class="waiting">
+      <h1>AGUARDANDO NOVO PEDIDO</h1>
+      <p>A tela será atualizada automaticamente.</p>
+    </section>
+    <section id="order" hidden>
+      <p class="eyebrow">NOVO PEDIDO</p>
+      <h1 id="number" class="number"></h1>
+      <p id="customer" class="customer"></p>
+      <ul id="items" class="items"></ul>
+      <div class="total"><span>TOTAL</span><strong id="total"></strong></div>
+      <button id="deliver" type="button">PEDIDO ENTREGUE</button>
+    </section>
+    <p id="error" class="error" hidden></p>
+  </main>
+</body>
+</html>
