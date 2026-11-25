@@ -38,12 +38,8 @@
 
 <h2>🖼️ Imagens do Projeto</h2>
 
-<p><em>Substitua os caminhos abaixo pelas imagens que você subir no repositório (por exemplo, dentro de uma pasta <code>imagens/</code> ou <code>assets/</code>):</em></p>
 
-<p align="center">
-  <img src="imagens/tela-inicial.png" alt="Tela inicial do Projeto Padaria" width="48%" />
-  <img src="imagens/tela-caixa.png" alt="Tela do módulo de caixa do Projeto Padaria" width="48%" />
-</p>
+
 <img width="1902" height="912" alt="image" src="https://github.com/user-attachments/assets/2a27d030-18cf-41be-a643-6b06573943c2" />
 <img width="1876" height="907" alt="image" src="https://github.com/user-attachments/assets/f02aa909-2008-4263-9b20-d56e1174a741" />
 
